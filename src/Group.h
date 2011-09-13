@@ -60,6 +60,7 @@ public:
 	void OutputNNVectorLammpstrjFile(string, string, int);
 	void CalcRDF(double);
 	void CalcRDF(Distrib *);
+	void CalcDensityVsR(Distrib *);
 	void OutputVolChangeMap(double *, string, string, int ,int);
 	Atom* FindAtom(int );
 	void OutputStrainTensor(gsl_matrix **, int, string, string, string);

@@ -647,7 +647,7 @@ void Output(int iComm)
 				neighGroup=sim.avg;
 			}
 			else{
-				cout<<"Groups of average besides 'all' are no currently supported.\n";
+				cout<<"Groups of average besides 'all' are not currently supported.\n";
 				exit(0);
 			}
 		}
@@ -673,6 +673,48 @@ void Output(int iComm)
 		string timeRangeName, groupName, path, fileName;
 		temp>>timeRangeName>>groupName>>path>> fileName;
 		sim.CalcRadius(timeRangeName, groupName, path, fileName);
+	}
+	else if (o=="densityVsR"){
+		int time;
+		double dr;
+		string g1, path, name;
+		Timestep *curTime=0;
+		Group *curGroup;
+		Distrib density;
+		gsl_vector *center=0;
+		temp>>time>>g1>>dr>>path>>name;
+		if (time!=-1){
+			curTime=sim.FindTimestep(time);
+			if (curTime==0){
+				exit(0);
+			}
+			curTime->InputPos("all");
+			curGroup=curTime->FindGroup(g1);
+			curTime->all.CalcCenter();
+			center=curTime->all.p->center;
+		}
+		else{
+			if (g1=="all"){
+				curGroup=sim.avg;
+				sim.avg->CalcCenter();
+				center=sim.avg->p->center;
+
+			}
+			else{
+				cout<<"Groups of average besides 'all' are not currently supported.\n";
+				exit(0);
+			}
+		}
+		curGroup->CalcPosMags(center);
+		double maxR=curGroup->GetMaxR()+dr;
+		AllocDistrib(&density, "DensityVsR", "R", "density", 0, maxR, dr);
+		curGroup->CalcDensityVsR(&density);
+		OutputDistrib(&density, path, name, true, true, "");
+		CleanDistrib(&density);
+		if (curTime){
+			curTime->Clean();
+		}
+
 	}
 	else{
 		cout<<"Output of calc not supported: "<<o<<endl;

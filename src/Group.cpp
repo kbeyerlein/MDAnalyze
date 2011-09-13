@@ -1193,3 +1193,14 @@ double Group::CalcRadiusOfGyration(gsl_vector *center)
 	gsl_vector_free(pos);
 	return sqrt(rgSq);
 }
+void Group::CalcDensityVsR(Distrib *density)
+{
+	for (int i=0;i<nAtoms;i++){
+		if (atom[i]->r>=density->minX&&atom[i]->r<=density->maxX){
+			density->y[(int) (atom[i]->r/density->step)]++;
+		}
+	}
+	for (int i=0;i<density->n;i++){
+		density->y[i]/=4*PI*density->x[i]*density->x[i]*density->step;
+	}
+}
