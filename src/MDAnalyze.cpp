@@ -705,6 +705,7 @@ void Output(int iComm)
 				exit(0);
 			}
 		}
+		cout<<"Outputting Atomic Density vs R ..."<<endl;
 		curGroup->CalcPosMags(center);
 		double maxR=curGroup->GetMaxR()+dr;
 		AllocDistrib(&density, "DensityVsR", "R", "density", 0, maxR, dr);

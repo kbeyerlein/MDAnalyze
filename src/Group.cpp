@@ -1201,6 +1201,8 @@ void Group::CalcDensityVsR(Distrib *density)
 		}
 	}
 	for (int i=0;i<density->n;i++){
-		density->y[i]/=4*PI*density->x[i]*density->x[i]*density->step;
+		if (density->x[i]!=0){
+			density->y[i]/=4*PI*density->x[i]*density->x[i]*density->step;
+		}
 	}
 }
