@@ -64,7 +64,7 @@ public:
 	int GetMaxTimestep();
 	Timestep *FindTimestep(int);
 	//Velocity correlation functions
-	void CalcVelCorrFunc( string, string);
+	void CalcVelCorrFunc( string, string, double);
 	double CalcAvgVelAutoCorr(string, Timestep *, Timestep *);
 	//Avg Position
 	void AllocAvg(string);

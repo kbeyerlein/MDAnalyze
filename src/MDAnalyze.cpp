@@ -90,9 +90,10 @@ void Calc(int iComm)
 		sim.CalcMSD_t(groupName, refStep, t0, tf);
 	}
 	else if (c=="velCorrFn"){
+		double tScale;
 		string groupName, timeRangeName;
-		temp>>groupName>>timeRangeName;
-		sim.CalcVelCorrFunc(groupName, timeRangeName);
+		temp>>groupName>>timeRangeName>>tScale;
+		sim.CalcVelCorrFunc(groupName, timeRangeName, tScale);
 	}
 	else if (c=="disp"){
 		string type;

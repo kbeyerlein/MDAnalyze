@@ -967,8 +967,12 @@ void TimeSeries::CalcEAStrainTensor(int j, AtomStrain *e)
 		gsl_permutation_free(p);
 	}
 }
-void TimeSeries::CalcVelCorrFunc(string groupName, string tRName)
+void TimeSeries::CalcVelCorrFunc(string groupName, string tRName, double tScale)
 {
+	if (tScale<=0){
+		cout<<endl<<"Error in CalcVelCorrFunc: Unphysical value of time scale given: "<<tScale<<endl;
+		exit(0);
+	}
 	Range *tR=FindTimeRange(tRName);
 	if (!tR){
 		exit(0);
@@ -980,7 +984,7 @@ void TimeSeries::CalcVelCorrFunc(string groupName, string tRName)
 	if (del!=0){
 		cout<<"\nCalculating Velocity Correlation Function ... ";
 		int n=GetNumVelInRange(tR);
-		AllocDistrib(&velCorrFn, "VelCorrFn", "Delta_t", "VelCorrelation", -(n-1)*del, (n-1)*del, del);
+		AllocDistrib(&velCorrFn, "VelCorrFn", "Delta_t", "VelCorrelation", -(n-1)*del*tScale, (n-1)*del*tScale, del*tScale);
 		int t0=tR->x0;
 		int count=0;
 		for (int i=0;i<n;i++){
