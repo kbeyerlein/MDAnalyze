@@ -21,7 +21,7 @@ TimeSeries sim;
 //					  - Use the execute as instructed philosophy, so ReadInputFile becomes program execution
 //					  - Want to use as little memory as possible, means reloading data files multiple times
 
-//NOTE: Data Structure;  TimeSeries>TimeStep>Group>VelGroup-PosGroup-Atom>pos-vel-type...
+//NOTE: Data Hierarchy;  TimeSeries>TimeStep>Group>VelGroup-PosGroup-Atom>pos-vel-type...
 
 void Calc(int iComm)
 {
