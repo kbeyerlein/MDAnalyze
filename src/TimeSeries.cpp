@@ -1208,6 +1208,7 @@ void TimeSeries::OutputStrainTensor(AtomStrain *F, string path, string fileName,
 {
 	fileName=path+"/"+fileName;
 	ofstream ofile;
+//TODO check if strain tensor should be in scientific notation
 	ofile.setf(ios::fixed, ios::floatfield);
 	ofile.open(fileName.c_str(), ios_base::app);
 	if (ofile.is_open()){

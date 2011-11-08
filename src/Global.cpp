@@ -285,7 +285,7 @@ void OutputDistrib(Distrib *dist, string path, string name, bool normX, bool nor
 	string fileName;
 	fileName=path+"/"+name;
 	ofstream ofile;
-	ofile.setf(ios::fixed, ios::floatfield);
+	ofile.setf(ios::scientific, ios::floatfield);
 	ofile.open(fileName.c_str(), ios_base::app);
 	if (ofile.is_open()){
 		if (comment!=""){
@@ -349,7 +349,7 @@ void OutputMultDistribs(Distrib **dist, int nDistribs, string path, string name,
 	string fileName;
 	fileName=path+"/"+name;
 	ofstream ofile;
-	ofile.setf(ios::fixed, ios::floatfield);
+	ofile.setf(ios::scientific, ios::floatfield);
 	ofile.open(fileName.c_str(), ios_base::app);
 	if (ofile.is_open()){
 		if (comment!=""){
@@ -497,6 +497,7 @@ void OutputStrainTensor(gsl_matrix **F, int n, string path, string fileName, str
 {
 	fileName=path+"/"+fileName;
 	ofstream ofile;
+//TODO check if strain tensor should be in scientific notation
 	ofile.setf(ios::fixed, ios::floatfield);
 	ofile.open(fileName.c_str(), ios_base::app);
 	if (ofile.is_open()){

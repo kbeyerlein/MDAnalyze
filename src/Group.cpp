@@ -612,6 +612,7 @@ void Group::OutputStrainTensor(gsl_matrix **F, int n, string path, string fileNa
 {
 	fileName=path+"/"+fileName;
 	ofstream ofile;
+	//TODO check if strain tensor should be in scientific notation
 	ofile.setf(ios::fixed, ios::floatfield);
 	ofile.open(fileName.c_str(), ios_base::app);
 	if (ofile.is_open()){
