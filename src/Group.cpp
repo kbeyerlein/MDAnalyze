@@ -777,7 +777,12 @@ void Group::BuildNeighsInRange_fast(Group *g2, double R0, double Rc)
 	//Setup so SubDomain size is fraction of boxSize
 	int n_L[3];
 	for (int i=0;i<3;i++){
-		n_L[i]=(int) (p->sideL[i]/Rc );
+		if (p->sideL[i]<Rc){
+			n_L[i]=1;
+		}
+		else{
+			n_L[i]=(int) (p->sideL[i]/Rc );
+		}
 	}
 
 	//Check if calculation is between atoms in the same group
