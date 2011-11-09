@@ -567,7 +567,46 @@ void Output(int iComm)
 		sR=sRList.FindSpaceRange(sRangeName);
 		AllocDistrib(&RDF, "RDF", "Dist.", "Num", sR->x0, sR->xf, sR->dx);
 		curGroup->BuildNeighsInRange_fast(neighGroup, sR->x0, sR->xf);
-		curGroup->CalcRDF(&RDF);
+		curGroup->CalcNeighHist(&RDF);
+		OutputDistrib(&RDF, path, name, false, true, "");
+		CleanDistrib(&RDF);
+		if (curTime){
+			curTime->Clean();
+		}
+	}
+	else if(o=="rdf"){
+		int time;
+		double density;
+		string g1,g2, sRangeName, path, name;
+		Timestep *curTime=0;
+		Group *curGroup, *neighGroup;
+		Range *sR;
+		Distrib RDF;
+		temp>>time>>sRangeName>>g1>>g2>>density>>path>>name;
+		if (time!=-1){
+			curTime=sim.FindTimestep(time);
+			if (curTime==0){
+				exit(0);
+			}
+			curTime->InputPos("all");
+			curGroup=curTime->FindGroup(g1);
+			neighGroup=curTime->FindGroup(g2);
+		}
+		else{
+			if (g1=="all"&&g2=="all"){
+				curGroup=sim.avg;
+				neighGroup=sim.avg;
+			}
+			else{
+				cout<<"Groups of average besides 'all' are no currently supported.\n";
+				exit(0);
+			}
+		}
+		sR=sRList.FindSpaceRange(sRangeName);
+		AllocDistrib(&RDF, "RDF", "Dist.", "Num", sR->x0, sR->xf, sR->dx);
+		curGroup->BuildNeighsInRange_fast(neighGroup, sR->x0, sR->xf);
+		curGroup->CalcNeighHist(&RDF);
+		curGroup->NormRDF(&RDF, density);
 		OutputDistrib(&RDF, path, name, false, true, "");
 		CleanDistrib(&RDF);
 		if (curTime){

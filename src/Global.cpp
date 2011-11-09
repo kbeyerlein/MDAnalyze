@@ -439,6 +439,25 @@ void AllocDistrib(Distrib *d, string _name, string _xName, string _yName, double
 	AllocateArray(&(d)->y, (d)->n);
 	InitDistrib(d);
 }
+void ScaleDistrib(Distrib *d, string axisName, double scale)
+{
+	if (axisName==d->xName){
+		for (int i=0;i<d->n;i++){
+			d->x[i]*=scale;
+			d->step*=scale;
+		}
+	}
+	else if (axisName==d->yName){
+		for (int i=0;i<d->n;i++){
+			d->y[i]*=scale;
+		}
+	}
+	else{
+		cout<<"Error: Cannot scale axis: "<<axisName<<" in distribution: "<<d->name<<endl;
+		cout<<"       Axis does not exist."<<endl;
+		exit(0);
+	}
+}
 void CleanDistrib(Distrib *d)
 {
 	delete [] d->x;

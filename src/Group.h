@@ -59,7 +59,8 @@ public:
 	void OutputNumNNLammpstrjFile(string , string , int);
 	void OutputNNVectorLammpstrjFile(string, string, int);
 	void CalcRDF(double);
-	void CalcRDF(Distrib *);
+	void CalcNeighHist(Distrib *);
+	void NormRDF(Distrib *, double);
 	void CalcDensityVsR(Distrib *);
 	void OutputVolChangeMap(double *, string, string, int ,int);
 	Atom* FindAtom(int );

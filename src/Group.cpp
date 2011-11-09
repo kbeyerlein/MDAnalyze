@@ -525,7 +525,7 @@ void Group::CalcRDF(double prec)
 		}
 	}
 }
-void Group::CalcRDF(Distrib *rdf)
+void Group::CalcNeighHist(Distrib *rdf)
 {
 	//gsl_vector *temp=gsl_vector_alloc(3);
 	double minSq=rdf->x[0]*rdf->x[0];
@@ -545,6 +545,23 @@ void Group::CalcRDF(Distrib *rdf)
 		}
 	}
 	//gsl_vector_free(temp);
+}
+void Group::NormRDF(Distrib *rdf, double density)
+{
+	//Function to normalize the RDF by scaling it by 1/Ni, where Ni=Vs*density, and Vs=volume of spherical shell
+	double scale=3/(4*PI*density);
+	ScaleDistrib(rdf, rdf->yName, scale);
+	for (int i=0;i<rdf->n;i++){
+		if (rdf->y[i]!=0){
+			double r=rdf->x[i];
+			r*=r;
+			r*=r;
+			double R=rdf->x[i]+rdf->step;
+			R*=R;
+			R*=R;
+			rdf->y[i]/=R-r;
+		}
+	}
 }
 void Group::OutputVolChangeMap(double *dV, string path, string _name, int timeStep, int index)
 {

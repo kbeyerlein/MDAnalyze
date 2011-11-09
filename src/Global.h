@@ -36,6 +36,7 @@ void OutputDistrib(Distrib*, string, string, bool, bool, string);
 void OutputMultDistribs(Distrib **dist, int, string, string, bool, bool, bool, string);
 void AllocDistrib(Distrib **, string, string, string, double, double, double);
 void AllocDistrib(Distrib *, string, string, string, double, double, double);
+void ScaleDistrib(Distrib *, string, double);
 void CleanDistrib(Distrib *);
 void FindBestPlaneOfPoints(gsl_vector**, double *, int, gsl_vector *, double *);
 void OutputStrainTensor(gsl_matrix **, int, string, string, string);
