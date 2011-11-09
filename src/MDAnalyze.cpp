@@ -615,10 +615,11 @@ void Output(int iComm)
 			}
 		}
 		sR=sRList.FindSpaceRange(sRangeName);
-		AllocDistrib(&RDF, "RDF", "Dist.", "g(R)", sR->x0, sR->xf, sR->dx);
+		AllocDistrib(&RDF, "RDF", "Dist.", "Num", sR->x0, sR->xf, sR->dx);
 		curGroup->BuildNeighsInRange_fast(neighGroup, sR->x0, sR->xf);
 		curGroup->CalcNeighHist(&RDF);
 		if (type=="norm"){
+			RDF.xName="g(R)";
 			curGroup->NormRDF(&RDF, density);
 		}
 		OutputDistrib(&RDF, path, name, false, true, "");
