@@ -577,12 +577,24 @@ void Output(int iComm)
 	else if(o=="rdf"){
 		int time;
 		double density;
-		string g1,g2, sRangeName, path, name;
+		string g1,g2, sRangeName, path, name, type;
 		Timestep *curTime=0;
 		Group *curGroup, *neighGroup;
 		Range *sR;
 		Distrib RDF;
-		temp>>time>>sRangeName>>g1>>g2>>density>>path>>name;
+		temp>>time>>sRangeName>>g1>>g2>>type;
+		if (type=="norm"){
+			temp>>density;
+			cout<<"Calculating normalized RDF of timestep "<<time<<" ..."<<endl;
+		}
+		else if(type=="noNorm"){
+			cout<<"Calculating un-normalized RDF of timestep "<<time<<" ..."<<endl;
+		}
+		else{
+			cout<<"Error: RDF type: "<<type<<" is not supported.\n";
+			exit(0);
+		}
+		temp>>path>>name;
 		if (time!=-1){
 			curTime=sim.FindTimestep(time);
 			if (curTime==0){
@@ -606,7 +618,9 @@ void Output(int iComm)
 		AllocDistrib(&RDF, "RDF", "Dist.", "Num", sR->x0, sR->xf, sR->dx);
 		curGroup->BuildNeighsInRange_fast(neighGroup, sR->x0, sR->xf);
 		curGroup->CalcNeighHist(&RDF);
-		curGroup->NormRDF(&RDF, density);
+		if (type=="norm"){
+			curGroup->NormRDF(&RDF, density);
+		}
 		OutputDistrib(&RDF, path, name, false, true, "");
 		CleanDistrib(&RDF);
 		if (curTime){
