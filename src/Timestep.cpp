@@ -537,7 +537,7 @@ void Timestep::ReadPosInLammpstrjFile(Group *tempAtoms, Position *tempP)
 
 void Timestep::Clean()
 {
-	/*
+/*
 	if (subDomain){
 		for(int i=0;i<nSubDomX;i++){
 			for (int j=0; j<nSubDomY; j++){
@@ -553,7 +553,7 @@ void Timestep::Clean()
 		nSubDomX=0;
 		delete [] subDomain;
 	}
-	*/
+*/
 	//Deletes atom information in all but does not destroy the group all
 
 	for (int i=0;i<all.nAtoms;i++){

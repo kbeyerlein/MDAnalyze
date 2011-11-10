@@ -1017,14 +1017,30 @@ void Group::AllocSubDomains(int nX, int nY, int nZ)
 				for (int j=0; j<nSubDomY; j++){
 					for (int k=0;k<nSubDomZ;k++){
 						delete [] subDomain[i][j][k].atom;
+						subDomain[i][j][k].atom=0;
 						subDomain[i][j][k].nAtoms=0;
 					}
 					//TODO Currently some problem when NN Alloc is called twice in the same run
-					delete [] subDomain[i][j];
+					//if (nSubDomZ==1){
+					//	delete subDomain[i][j];
+					//}
+					//else{
+						delete [] subDomain[i][j];
+					//}
 				}
-				delete [] subDomain[i];
+				//if (nSubDomY==1){
+				//	delete subDomain[i];
+				//}
+				//else{
+					delete [] subDomain[i];
+				//}
 			}
-			delete [] subDomain;
+			//if (nSubDomX==1){
+			//	delete subDomain;
+			//}
+			//else{
+				delete [] subDomain;
+			//}
 		}
 
 		nSubDomX=nX;
