@@ -618,6 +618,7 @@ void Output(int iComm)
 		AllocDistrib(&RDF, "RDF", "Dist.", "Num", sR->x0, sR->xf, sR->dx);
 		curGroup->BuildNeighsInRange_fast(neighGroup, sR->x0, sR->xf);
 		curGroup->CalcNeighHist(&RDF);
+		ScaleDistrib(&RDF, RDF.yName, 1.0/curGroup->nAtoms);
 		if (type=="norm"){
 			RDF.xName="g(R)";
 			curGroup->NormRDF(&RDF, density);
