@@ -33,6 +33,7 @@ void InitDistrib(Distrib *);
 void AllocAtomNN(Atom *);
 gsl_vector * ArrayColToGSLVector(double **, int, int);
 void OutputDistrib(Distrib*, string, string, bool, bool, string);
+void OutputDistrib(Distrib*, string, string, bool, bool, string, string, int);
 void OutputMultDistribs(Distrib **dist, int, string, string, bool, bool, bool, string);
 void AllocDistrib(Distrib **, string, string, string, double, double, double);
 void AllocDistrib(Distrib *, string, string, string, double, double, double);

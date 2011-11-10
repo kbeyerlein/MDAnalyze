@@ -271,6 +271,10 @@ gsl_vector * ArrayColToGSLVector(double **a, int nX, int y)
 }
 void OutputDistrib(Distrib *dist, string path, string name, bool normX, bool normY, string comment)
 {
+	OutputDistrib(dist, path, name, normX, normY, comment, "sci", 5);
+}
+void OutputDistrib(Distrib *dist, string path, string name, bool normX, bool normY, string comment, string format, int prec)
+{
 	double scaleX=dist->x[0], scaleY=dist->y[0];
 	if (normX){
 		for (int i=1;i<dist->n;i++){
@@ -285,13 +289,18 @@ void OutputDistrib(Distrib *dist, string path, string name, bool normX, bool nor
 	string fileName;
 	fileName=path+"/"+name;
 	ofstream ofile;
-	ofile.setf(ios::scientific, ios::floatfield);
+	if (format=="decimal"){
+		ofile.setf(ios::fixed, ios::floatfield);
+	}
+	else{
+		ofile.setf(ios::scientific, ios::floatfield);
+	}
 	ofile.open(fileName.c_str(), ios_base::app);
 	if (ofile.is_open()){
 		if (comment!=""){
 			ofile<<comment<<endl;
 		}
-		ofile.precision(5);
+		ofile.precision(prec);
 		ofile<<dist->xName<<" ";
 		if(normX){
 			ofile<<dist->xName+"Norm"<<" ";
